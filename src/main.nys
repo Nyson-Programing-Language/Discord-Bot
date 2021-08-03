@@ -1,3 +1,6 @@
 func(send_webhook(url, cont)) {
     POST(url, '{\"content\":\"" cont "\"}', "Content-Type: application/json");
 }
+func(sent_bot(token, channelid, cont)) {
+    POST("https://discordapp.com/api/channels/"channelid"/messages", '{\"content\":\""cont"\"}', "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json");
+}
