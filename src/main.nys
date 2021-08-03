@@ -16,3 +16,6 @@ func(delete_message_bot(token, channelid, messageid)) {
 func(edit_message_bot(token, channelid, messageid, cont)) {
     ret(request("PATCH", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, '{\"content\":\""cont"\"}' , "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
+func(del_all_reactions_bot(token, channelid, messageid, cont)) {
+    ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions" , "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
