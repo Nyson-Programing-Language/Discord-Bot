@@ -1,0 +1,3 @@
+func(send_webhook(url, cont)) {
+    POST(url, '{\"content\":\"" cont "\"}', "Content-Type: application/json");
+}
