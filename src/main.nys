@@ -1,6 +1,18 @@
-func(send_webhook(url, cont)) {
-    POST(url, '{\"content\":\"" cont "\"}', "Content-Type: application/json");
+func(send_message_webhook(url, cont)) {
+    ret(request("POST", url, '{\"content\":\"" cont "\"}', "Content-Type: application/json"));
 }
-func(sent_bot(token, channelid, cont)) {
-    POST("https://discordapp.com/api/channels/"channelid"/messages", '{\"content\":\""cont"\"}', "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json");
+func(edit_message_webhook(url, messageid, cont)) {
+    ret(request("PATCH", url"/messages/"messageid, '{\"content\":\"" cont "\"}', "Content-Type: application/json"));
+}
+func(delete_message_webhook(url, messageid)) {
+    ret(request("DELETE", url"/messages/"messageid, "Content-Type: application/json"));
+}
+func(sent_message_bot(token, channelid, cont)) {
+    ret(request("POST", "https://discordapp.com/api/channels/"channelid"/messages", '{\"content\":\""cont"\"}', "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(delete_message_bot(token, channelid, messageid)) {
+    ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(edit_message_bot(token, channelid, messageid, cont)) {
+    ret(request("PATCH", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, '{\"content\":\""cont"\"}' , "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
