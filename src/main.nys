@@ -1,3 +1,5 @@
+// WEBHOOKS
+
 func(send_message_webhook(url, cont)) {
     ret(request("POST", url, '{\"content\":\"" cont "\"}', "Content-Type: application/json"));
 }
@@ -7,21 +9,45 @@ func(edit_message_webhook(url, messageid, cont)) {
 func(delete_message_webhook(url, messageid)) {
     ret(request("DELETE", url"/messages/"messageid, "Content-Type: application/json"));
 }
-func(sent_message_bot(token, channelid, cont)) {
+
+// BOT
+
+func(sent_message(token, channelid, cont)) {
     ret(request("POST", "https://discordapp.com/api/channels/"channelid"/messages", '{\"content\":\""cont"\"}', "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
-func(delete_message_bot(token, channelid, messageid)) {
+func(delete_message(token, channelid, messageid)) {
     ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
-func(edit_message_bot(token, channelid, messageid, cont)) {
+func(edit_message(token, channelid, messageid, cont)) {
     ret(request("PATCH", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, '{\"content\":\""cont"\"}' , "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
-func(del_react_bot(token, channelid, messageid, emoji, userid)){
+func(del_react(token, channelid, messageid, emoji, userid)){
     ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions/"emoji"/"userid, "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
-func(create_react_bot(token, channelid, messageid, emoji, userid)){
+func(create_react(token, channelid, messageid, emoji, userid)){
     ret(request("PUT", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions/"emoji"/@me, "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
-func(del_all_reactions_bot(token, channelid, messageid, cont)) {
+func(del_all_reactions(token, channelid, messageid, cont)) {
     ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions" , "Authorization: Bot "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+
+// USER BOT
+
+func(sent_message_user(token, channelid, cont)) {
+    ret(request("POST", "https://discordapp.com/api/channels/"channelid"/messages", '{\"content\":\""cont"\"}', "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(delete_message_user(token, channelid, messageid)) {
+    ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(edit_message_user(token, channelid, messageid, cont)) {
+    ret(request("PATCH", "https://discordapp.com/api/channels/"channelid"/messages/"messageid, '{\"content\":\""cont"\"}' , "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(del_react_user(token, channelid, messageid, emoji, userid)){
+    ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions/"emoji"/"userid, "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(create_react_user(token, channelid, messageid, emoji, userid)){
+    ret(request("PUT", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions/"emoji"/@me, "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
+}
+func(del_all_reactions_user(token, channelid, messageid, cont)) {
+    ret(request("DELETE", "https://discordapp.com/api/channels/"channelid"/messages/"messageid"/reactions" , "Authorization: "token, "User-Agent: myBotThing (http://some.url, v0.1)", "Content-Type: application/json"));
 }
